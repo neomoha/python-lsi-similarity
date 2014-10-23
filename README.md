@@ -15,24 +15,26 @@ To install them, just type: **pip install -U numpy scipy gensim**
 How to use this code
 ------
 
-* There is an example dataset of artists and tags (crawled from Last.fm back in 2009) included in the compressed file data.tar.bz2
-Just uncompress it and you will be able to run a demo that simply computes similarity between tags.
+* There is an example dataset of artists and tags (crawled from Last.fm back in 2009) included in the compressed file [data.tar.bz2](https://github.com/neomoha/python-lsi-similarity/blob/master/data.tar.bz2).
+Just uncompress it and you will be able to run a demo that computes similarity between tags.
 
 * The file [config.py](https://github.com/neomoha/python-lsi-similarity/blob/master/config.py) includes the default configuration to run the demo in [model.py](https://github.com/neomoha/python-lsi-similarity/blob/master/model.py). The two required documents for the model to work are:
   * A dictionary file, *data/lastfm_artists.txt*, which includes the names of the items (artists in this case), one item per line.
   * A corpus file, *data/lastfm_tags_artists.tsv*, which includes a document name (tag) and its list of items (artists) with their corresponding normalized weights
-     document_name[TAB][(item_name1, weight1), (item_name2, weight2), ...] 
+  ```
+     document_name[TAB][(item_name1, weight1), (item_name2, weight2), ...]
+  ```
 
 * The previous configuration is set up to provide tag similarity. If you want artist similarity instead, you just have to use the files *data/lastfm_tags.txt* and *data/lastfm_artists_tags.tsv*, respectively.
 
 * You can also use your own dataset. However, you must follow the exact format as the previoussly mention sample files.
 Hopefully in the future I'll make the code more flexible so that you can use your own format.
 
-* The rest of the configuration options for the demo are already explained in the script [model.py](https://github.com/neomoha/python-lsi-similarity/blob/master/model.py)
+* The rest of the configuration options for the demo are already explained in the script [model.py](https://github.com/neomoha/python-lsi-similarity/blob/master/model.py), in the main function below.
 
 * There is however another script called [cleaner.py](https://github.com/neomoha/python-lsi-similarity/blob/master/cleaner.py).
-  In the case of tags, it was necessary to write some code to clean the very noisy tag dataset from Last.fm
-  By the default while running the demo at model.py, the DefaultCleaner will be called, which actually just checks if the input document name is a string or not.
+  In the case of tags, it was necessary to write some code to clean the very noisy tag dataset from Last.fm.
+  By default the DefaultCleaner will be called while running the demo at model.py. This cleaner actually just checks if the input document name is a string or not.
   In the case of tags, I used TagCleaner to clean the dataset, and thus is also needed to query the dataset. 
 
 Examples
@@ -40,12 +42,15 @@ Examples
 
 ### Help
 
+```
 $ python model.py -h
+```
 
 ### Tag similarity
 
 #### Similar tags to a given tag
 
+```
 $ python model.py "Italian Rap" -s 10 -c TagCleaner
 ('rapitaliano', 0.99289674)
 ('hiphopitaliano', 0.9866116)
@@ -90,9 +95,11 @@ $ python model.py "Acid House" -s 5 -n 200 -c TagCleaner
 ('electronicdancemusic', 0.77227825)
 ('hiphouse', 0.76878512)
 ('wbmx', 0.75617921)
+```
 
 #### Similarity between two tags
 
+```
 $ python model.py "Acid House" -p "House" -c TagCleaner
 0.860134568029
 
@@ -107,5 +114,6 @@ $ python model.py "classical music" -p "party" -c TagCleaner
 
 $ python model.py "dance" -p "party" -c TagCleaner
 0.804738605955
+```
 
 
