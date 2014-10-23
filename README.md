@@ -1,4 +1,4 @@
-Get artist genre(s) from The Echo Nest API
+Document (Term) Similarity using Latent Semantic Indexing
 ======
 
 A small code in python to compute semantic similarity between documents (or items) using Latent Semantic Indexing (LSI)
